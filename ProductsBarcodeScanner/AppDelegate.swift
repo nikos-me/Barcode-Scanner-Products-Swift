@@ -12,11 +12,35 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var products = [Product]()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        generateProducts { (prs) in
+            self.products = prs
+        }
+        
         return true
+    }
+    
+    static func shared()->AppDelegate{
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    private func generateProducts(completion: @escaping ([Product]) -> Void){
+        
+        let tempProducts = [
+                            Product(id: "293767925", title: "iPhone", description: "test desc", barcode: "62516281637931", category: "SmartPhones", logoImage: UIImage(named: "iphone")),
+                            Product(id: "24324", title: "Watch", description: "test desc", barcode: "62516281637931", category: "Watches", logoImage: UIImage(named: "watch")),
+                            Product(id: "12443", title: "Drone", description: "test desc", barcode: "62516281637931", category: "Gadgets", logoImage: UIImage(named: "drone")),
+                            Product(id: "2344234", title: "Shoe", description: "test desc", barcode: "62516281637931", category: "Shoes", logoImage: UIImage(named: "shoes")),
+                            Product(id: "2354255", title: "HeadPhones", description: "test desc", barcode: "62516281637931", category: "Gadgets", logoImage: UIImage(named: "headPhones")),
+                            Product(id: "12353542", title: "Backpack", description: "test desc", barcode: "62516281637931", category: "Backpacks", logoImage: UIImage(named: "bag"))
+                        ]
+        
+        completion(tempProducts)
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
